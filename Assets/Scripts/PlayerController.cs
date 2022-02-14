@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         speedmodifier = 0.01f;
-        GetComponent<Rigidbody>().velocity = new Vector3(0,0,speed);
     }
 
     // Update is called once per frame
@@ -33,5 +32,6 @@ public class PlayerController : MonoBehaviour
     } else if(transform.position.x < -3.5f) {
         transform.position = new Vector3(-3.49f, transform.position.y, transform.position.z);
     }
+    transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 }
