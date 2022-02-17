@@ -1,15 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//dodajemo zbog nove scene
+using UnityEngine.SceneManagement;
+//da bi ubacili text koji se nalazi u UI
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public Text gameOverText;
     Touch touch;
     public float speed;
     public float speedmodifier;
     // Start is called before the first frame update
     void Start()
     {
+        gameOverText.enabled = false;
         speedmodifier = 0.01f;
     }
 
@@ -33,5 +39,19 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector3(-3.49f, transform.position.y, transform.position.z);
     }
     transform.Translate(Vector3.forward * speed * Time.deltaTime);
+    }
+    //kada player dotakne obstacle da se unisti i da ode u drugu scenu
+    private void OnTriggerEnter(Collider other) {
+        if(other.gameObject.tag == "Enemy") {
+            StartCoroutine("StopandWait"); 
+            GetComponent<MeshRenderer>().enabled = false; //da iskljucimo meshrenderer komponentu na playeru
+            gameObject.GetComponentInChildren<TrailRenderer>().enabled = false; //da disabliramo i trail
+            //da enabliramo game over text jer smo ga disablovali u startu
+            gameOverText.enabled = true; 
+        }
+    }
+    IEnumerator StopandWait() {
+        yield return new WaitForSeconds(2f); //da sacekamo 2 sekunde preko nego sto se iskljuci meshrenderer na playeru
+        SceneManager.LoadScene("Restart Menu");
     }
 }
