@@ -8,11 +8,27 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public Text ScoreText;
     public Text gameOverText;
     Touch touch;
+    public float Score;
     public float speed;
+    // pravimo boolean isGameover da bi zaustvaili score da ne ide vise kada player naleti na enemyja
+    public bool isGameover;
     public float speedmodifier;
     // Start is called before the first frame update
+    // awake funkcija je funkcija koja se pokrece pre start funkcije
+    private void Awake() {
+        isGameover = false;
+        Score = 0;
+        //za snimanje scora u highscore koji ce biti smesten na device
+        //ako je score == 0, smestamo 0 u highscore
+        if(PlayerPrefs.GetFloat("Highscore") == 0) {
+            PlayerPrefs.SetFloat("Highscore", 0);
+        }
+        //SetFloat zato sto je score Float
+        PlayerPrefs.SetFloat("Score", Score);
+    }
     void Start()
     {
         gameOverText.enabled = false;
@@ -22,6 +38,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // dokle god nije gameover povecavace se score
+        if(isGameover == false) {
+        Score++;
+        }
+        ScoreText.text = "Score: " + Score.ToString();
         //da bi se player pomerao levo i desno pomocu strelica na tastaturi
     if (Input.GetKey(KeyCode.LeftArrow) && transform.position.x>-3.5f) {
    transform.Translate(Vector3.left * speed * Time.deltaTime);
@@ -43,11 +64,19 @@ public class PlayerController : MonoBehaviour
     //kada player dotakne obstacle da se unisti i da ode u drugu scenu
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag == "Enemy") {
+            isGameover = true;
             StartCoroutine("StopandWait"); 
             GetComponent<MeshRenderer>().enabled = false; //da iskljucimo meshrenderer komponentu na playeru
             gameObject.GetComponentInChildren<TrailRenderer>().enabled = false; //da disabliramo i trail
             //da enabliramo game over text jer smo ga disablovali u startu
             gameOverText.enabled = true; 
+            //ako je trenutni score veci od highscora, smesticemo ga kao novi highscore
+            if (PlayerPrefs.GetFloat("Highscore")< Score) {
+                PlayerPrefs.SetFloat("Highscore", Score);
+                PlayerPrefs.SetFloat("Score", Score);
+            } else {
+                PlayerPrefs.SetFloat("Score", Score);
+            }
         }
     }
     IEnumerator StopandWait() {
