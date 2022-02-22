@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class RestartScript : MonoBehaviour
 {
@@ -22,5 +23,12 @@ public class RestartScript : MonoBehaviour
     void Update()
     {
         
+    }
+    // void znaci da funkcija ne vraca nista
+    public void RestartGame() {
+        SceneManager.LoadScene("SampleScene");
+    }
+    public void MainMenuGame() {
+        SceneManager.LoadScene("MainMenu");
     }
 }
