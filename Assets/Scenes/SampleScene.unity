@@ -1544,6 +1544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScoreText: {fileID: 1635774487}
   gameOverText: {fileID: 1744295763}
+  speeder: 0
   Score: 0
   speed: 15
   isGameover: 0
@@ -1635,7 +1636,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 313363729847305929, guid: 8fcab9bdba439924f815f34bc64f1e82, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 21.92
+      value: 46.25
       objectReference: {fileID: 0}
     - target: {fileID: 313363729847305929, guid: 8fcab9bdba439924f815f34bc64f1e82, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1696,7 +1697,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4139624587918346171, guid: f90a40f1faa9e1c45853194d1c95a95e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8
+      value: 27.17
       objectReference: {fileID: 0}
     - target: {fileID: 4139624587918346171, guid: f90a40f1faa9e1c45853194d1c95a95e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1749,7 +1750,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7953049174103337218, guid: b73b9aab0ba843f4eb7e0f7897aaf2c2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15.05
+      value: 38.03
       objectReference: {fileID: 0}
     - target: {fileID: 7953049174103337218, guid: b73b9aab0ba843f4eb7e0f7897aaf2c2, type: 3}
       propertyPath: m_LocalRotation.w

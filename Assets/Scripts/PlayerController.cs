@@ -11,6 +11,10 @@ public class PlayerController : MonoBehaviour
     public Text ScoreText;
     public Text gameOverText;
     Touch touch;
+
+    // za postepeno povecavanje brzine
+    public float speeder;
+
     public float Score;
     public float speed;
     // pravimo boolean isGameover da bi zaustvaili score da ne ide vise kada player naleti na enemyja
@@ -30,7 +34,8 @@ public class PlayerController : MonoBehaviour
         PlayerPrefs.SetFloat("Score", Score);
     }
     void Start()
-    {
+    {   
+        speeder = 4f;
         gameOverText.enabled = false;
         speedmodifier = 0.01f;
     }
@@ -38,6 +43,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // da bi se postepeno povecavala brzina playera
+        if(speeder >= 0) {
+        speeder -= Time.deltaTime;
+        }       
+        if(speeder <= 0 && speed < 50) {
+            speed++;
+            speeder = 4f;
+        }
+
         // dokle god nije gameover povecavace se score
         if(isGameover == false) {
         Score++;
